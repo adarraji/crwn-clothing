@@ -1,5 +1,6 @@
 import React from 'react'
 import "./app.scss"
+import CategoryItem from "./components/category-item/CategoryItem"
 
 const categories = [
   {
@@ -33,14 +34,8 @@ const categories = [
 const App = () => {
   return (
     <div className="categories-container">
-      {categories.map((category, index) => (
-        <div key={index} className="category-container">
-          <div className="background-image" style={{backgroundImage:`url(${category.imageUrl})`}} />
-          <div className="category-body-container">
-            <h2>{category.title}</h2>
-            <p>Shop Now</p>
-          </div>
-        </div>
+      {categories.map(category => (
+        <CategoryItem key={category.id} category={category} />
       ))}
     </div>
   )
