@@ -1,4 +1,5 @@
 import React from 'react'
+import "./app.scss"
 
 const categories = [
   {
@@ -26,8 +27,8 @@ const categories = [
 const App = () => {
   return (
     <div className="categories-container">
-      {categories.map(category => (
-        <div key={category.id} className="category-container">
+      {categories.map((category, index) => (
+        <div key={index} className="category-container">
           <div className="background-image" />
           <div className="category-body-container">
             <h2>{category.title}</h2>
