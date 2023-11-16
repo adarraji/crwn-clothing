@@ -1,10 +1,13 @@
 import "./app.scss"
 import Home from "./routes/home/Home"
+import { Routes, Route } from "react-router-dom"
 
 
 const App = () => {
   return (
-    <Home/>
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
   )
 }
 
