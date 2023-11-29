@@ -33,7 +33,7 @@ const Signin = () => {
             resetFormFields()
 
         } catch (error) {
-
+            console.log(error)
         }
     };
 
