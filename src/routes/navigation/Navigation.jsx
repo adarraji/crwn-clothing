@@ -2,7 +2,7 @@ import { Fragment, useContext } from 'react'
 import { Outlet, Link } from "react-router-dom"
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg"
 import "./navigation.scss"
-import { UserContext } from "../../components/context/userContext"
+import { UserContext } from "../../context/userContext"
 import { signOutUser } from "../../utils/firebase/firebase"
 
 const Navigation = () => {
