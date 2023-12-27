@@ -1,9 +1,9 @@
 import { } from "firebase/auth"
 import { useState } from "react"
-import {  signInAuthUserWithEmailAndPassword, signInWithGooglePopup } from "../../utils/firebase/firebase"
+import { signInAuthUserWithEmailAndPassword, signInWithGooglePopup } from "../../utils/firebase/firebase"
 import FormInput from "../formInput/FormInput"
 import "./signin.scss"
-import Button from "../button/Button"
+import Button, { BUTTON_TYPE_CLASSES } from "../button/Button"
 
 const defaultFormFields = {
     email: "",
@@ -20,7 +20,7 @@ const Signin = () => {
     }
 
     const signInWithGoogle = async () => {
-        await signInWithGooglePopup();        
+        await signInWithGooglePopup();
     }
 
     const handleSubmit = async (event) => {
@@ -51,7 +51,7 @@ const Signin = () => {
                 <FormInput label="Password" type="password" required onChange={handleChange} name="password" value={password} />
                 <div className="buttons-container">
                     <Button type="submit">Sign In</Button>
-                    <Button type="button" buttonType="google" onClick={signInWithGoogle}>Google Sign In</Button>
+                    <Button type="button" buttonType={BUTTON_TYPE_CLASSES.google} onClick={signInWithGoogle}>Google Sign In</Button>
                 </div>
 
 
