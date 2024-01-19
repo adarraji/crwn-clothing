@@ -2,6 +2,7 @@
 React
 SASS/SCSS
 Firebase for DB and authentication
+styled components
 
 
 # Env variables
