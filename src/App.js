@@ -1,4 +1,3 @@
-import "./app.scss"
 import Home from "./routes/home/Home"
 import { Routes, Route } from "react-router-dom"
 import Navigation from "./routes/navigation/Navigation"
