@@ -10,10 +10,8 @@ import { useSelector } from "react-redux"
 const Category = () => {
   const { category } = useParams()
   const [products, setProducts] = useState([])
-
   const categoriesMap = useSelector(selectCategoriesMap)
-
-
+  
   useEffect(() => {
     setProducts(categoriesMap[category])
   }, [category, categoriesMap])
