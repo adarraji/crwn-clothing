@@ -13,7 +13,7 @@ import {
 } from './CheckoutItem.styles';
 
 const CheckoutItem = ({ cartItem }) => {
-  const { name, imageurl, price, quantity } = cartItem;
+  const { name, imageUrl, price, quantity } = cartItem;
 
   const dispatch = useDispatch()
   const cartItems = useSelector(selectCartItems)
@@ -26,7 +26,7 @@ const CheckoutItem = ({ cartItem }) => {
   return (
     <CheckoutItemContainer>
       <ImageContainer>
-        <img src={imageurl} alt={`${name}`} />
+        <img src={imageUrl} alt={`${name}`} />
       </ImageContainer>
       <BaseSpan> {name} </BaseSpan>
       <Quantity>
