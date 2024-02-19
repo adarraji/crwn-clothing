@@ -3,6 +3,8 @@ React
 SASS/SCSS
 Firebase for DB and authentication
 styled components
+Redux toolkit
+Redux thunk
 
 
 # Env variables
