@@ -19,3 +19,8 @@ Redux thunk
  REACT_APP_MEASUREMENTID
 
 NOTE: add your react server to Authorized domains in firebase
+
+## Stripe
+`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+
+`STRIPE_SECRET_KEY`
