@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { getCategoriesAndDocuments } from "../../utils/firebase/firebase"
+import { CategoriesState } from "./category.types"
 
 
 export const fetchCategories = createAsyncThunk("categories/fetchCategories", async () => {
-    const categoriesArray = await getCategoriesAndDocuments("categories")
+    const categoriesArray = await getCategoriesAndDocuments()
     return categoriesArray
 })
 
-export const CATEGORIES_INITIAL_STATE = {
+export const CATEGORIES_INITIAL_STATE: CategoriesState = {
     categories: [],
     isLoading: false,
     error: null
@@ -31,7 +32,7 @@ export const categoriesSlice = createSlice({
         })
         builder.addCase(fetchCategories.rejected, (state, action) => {
             state.isLoading = false
-            state.error = action.payload
+            state.error = action.payload as string | null
         })
     }
 })
