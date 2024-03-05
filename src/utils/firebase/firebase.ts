@@ -13,6 +13,8 @@ import {
 } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc, collection, writeBatch, query, getDocs, QueryDocumentSnapshot } from "firebase/firestore"
 import { Category } from "../../store/categories/category.types";
+import { UserData } from "./firebase.types";
+
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_APIKEY,
@@ -24,7 +26,7 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENTID
 };
 
-import { UserData } from "./firebase.types";
+
 
 
 
