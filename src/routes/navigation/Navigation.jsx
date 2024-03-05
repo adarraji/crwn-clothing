@@ -5,8 +5,7 @@ import CartIcon from "../../components/cartIcon/CartIcon"
 import CartDropdown from "../../components/cartDropdown/CartDropdown"
 import { useSelector } from "react-redux"
 import { selectIsCartOpen } from "../../store/cart/cart.selector.js"
-import { selectCurrentUser } from "../../store/user/user.selector.js"
-
+import { selectCurrentUser } from "../../store/user/user.selector"
 import { NavigationContainer, LogoContainer, Navlinks, NavLink } from "./navigation.styles.jsx"
 
 import { useDispatch } from "react-redux"
