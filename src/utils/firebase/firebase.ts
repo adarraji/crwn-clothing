@@ -24,6 +24,8 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENTID
 };
 
+import { UserData } from "./firebase.types";
+
 
 
 
@@ -47,12 +49,6 @@ export const db = getFirestore()
 
 export type AdditionalInformation = {
   displayNmae?: string
-}
-
-export type UserData = {
-  createdAt: Date;
-  displayName: string;
-  email: string;
 }
 
 export const createUserDocumentFromAuth = async (

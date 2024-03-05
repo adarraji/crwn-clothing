@@ -1,9 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice, PayloadAction  } from "@reduxjs/toolkit"
 import { getCurrentUser, createUserDocumentFromAuth, signInWithGooglePopup, signInAuthUserWithEmailAndPassword, createAuthUserWithEmailAndPassword, signOutUser } from "../../utils/firebase/firebase"
+import { UserData } from "../../utils/firebase/firebase.types"
+import { UserState, UserFormData } from "./user.types"
 
-const getSnapshotFromUserAuth = async (userAuth) => {
+const getSnapshotFromUserAuth = async (userAuth: any): Promise<UserData | null> => {
     const userSnapshot = await createUserDocumentFromAuth(userAuth)
-    return { id: userSnapshot.id, ...userSnapshot.data() }
+    if (!userSnapshot) return null
+    return { id: userSnapshot.id, ...userSnapshot.data() } as UserData
 }
 
 export const checkUserSession = createAsyncThunk("user/checkUserSession", async () => {
@@ -17,22 +20,24 @@ export const googleSignin = createAsyncThunk("user/googleSignin", async () => {
     return await getSnapshotFromUserAuth(user)
 })
 
-export const emailSignin = createAsyncThunk("user/emailSignin", async ({ email, password }) => {
-    const { user } = await signInAuthUserWithEmailAndPassword(email, password)
+export const emailSignin = createAsyncThunk("user/emailSignin", async ({ email, password }: UserFormData) => {
+    const userCredential = await signInAuthUserWithEmailAndPassword(email, password)
+    const user = userCredential ? userCredential.user : null;
     return await getSnapshotFromUserAuth(user)
 })
 
-export const signUp = createAsyncThunk("user/signUp", async ({ email, password, displayName }) => {
-    const { user } = await createAuthUserWithEmailAndPassword( email, password)
-    return await getSnapshotFromUserAuth(user, { displayName })  
+export const signUp = createAsyncThunk("user/signUp", async ({ email, password, displayName }: UserFormData) => {
+    const userCredential = await createAuthUserWithEmailAndPassword(email, password)
+    const user = userCredential ? userCredential.user : null;
+    return await getSnapshotFromUserAuth(user)
 })
 
 export const signOut = createAsyncThunk("user/signOut", async () => {
-    await signOutUser() 
+    await signOutUser()
 })
 
 
-const INITIAL_STATE = {
+const INITIAL_STATE: UserState = {
     currentUser: null,
     isLoading: false,
     error: null
@@ -42,7 +47,7 @@ export const userSlice = createSlice({
     name: "user",
     initialState: INITIAL_STATE,
     reducers: {
-       
+
     },
     extraReducers: (builder) => {
 
@@ -55,7 +60,12 @@ export const userSlice = createSlice({
         })
         builder.addCase(signOut.rejected, (state, action) => {
             state.isLoading = false
-            state.error = action.payload
+            if (typeof action.payload === "string") {
+                state.error = action.payload
+            } else {
+                state.error = null
+            }
+
         })
 
         // Adding addMatcher for the function that share pending, fulfilled and rejected actions
@@ -73,16 +83,17 @@ export const userSlice = createSlice({
                     emailSignin.rejected.type,
                     signUp.pending.type,
                     signUp.fulfilled.type,
-                    signUp.rejected.type,                    
+                    signUp.rejected.type,
                 ].includes(action.type)
             },
-            (state, action) => {
+            (state, action:PayloadAction<UserData | null | string>) => {
                 const isLoadingAction = action.type.endsWith("/pending")
                 state.isLoading = isLoadingAction
                 if (!isLoadingAction) {
-                    state.currentUser = action.type.endsWith("/fulfilled") && action.payload
-                    state.error = action.type.endsWith("/rejected") && action.payload
-                }
+                    if(typeof action.payload !== "boolean" ){
+                        state.currentUser = action.payload as UserData | null
+                    }                    
+                    state.error = action.type.endsWith("/rejected") ? action.payload as string | null : null                }
 
                 // Another way to do this is using if/else statments
                 //
@@ -97,7 +108,7 @@ export const userSlice = createSlice({
                 //     }
                 // }
             }
-        )       
+        )
     }
 })
 
