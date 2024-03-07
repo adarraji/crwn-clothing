@@ -1,9 +1,12 @@
-import { useState } from "react"
+import { useState, FormEvent, ChangeEvent } from "react"
 import { useDispatch } from "react-redux"
 import FormInput from "../formInput/FormInput"
 import { SignInContainer, ButtonsContainer } from "./Signin.styles"
 import Button, { BUTTON_TYPE_CLASSES } from "../button/Button"
 import { emailSignin, googleSignin } from "../../store/user/user.reducer"
+import { AppDispatch } from "../../store/store"
+import { AuthError } from "firebase/auth"
+
 
 const defaultFormFields = {
     email: "",
@@ -12,7 +15,7 @@ const defaultFormFields = {
 
 
 const Signin = () => {
-    const dispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch()
 
     const [formFields, setFormFields] = useState(defaultFormFields)
     const { email, password } = formFields
@@ -25,7 +28,9 @@ const Signin = () => {
         dispatch(googleSignin())
     }
 
-    const handleSubmit = async (event) => {
+
+
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         try {
@@ -33,13 +38,13 @@ const Signin = () => {
             resetFormFields()
 
         } catch (error) {
-            if (error.code === "auth/invalid-login-credentials")
+            if ((error as AuthError).code === "auth/invalid-login-credentials")
                 alert("invalid login credentials")
             console.log(error)
         }
     };
 
-    const handleChange = (event) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
         setFormFields({ ...formFields, [name]: value })
     }
