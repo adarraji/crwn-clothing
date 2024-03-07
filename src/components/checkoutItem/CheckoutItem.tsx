@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { addItemToCart, removeItemFromCart, clearItemFromCart } from '../../store/cart/cart.reducer';
+import { CartItemType } from "../../store/cart/cart.types";
 import {
   CheckoutItemContainer,
   ImageContainer,
@@ -9,15 +10,16 @@ import {
   Value,
   RemoveButton,
 } from './CheckoutItem.styles';
+import { AppDispatch } from "../../store/store";
 
-const CheckoutItem = ({ cartItem }) => {
+const CheckoutItem = ({ cartItem }: { cartItem: CartItemType }) => {
   const { name, imageUrl, price, quantity } = cartItem;
 
-  const dispatch = useDispatch()
+  const dispatch: AppDispatch = useDispatch()
 
   const clearItemHandler = () => dispatch(clearItemFromCart(cartItem));
   const addItemHandler = () => dispatch(addItemToCart(cartItem));
-  const removeItemHandler = () => dispatch(removeItemFromCart(cartItem));
+  const removeItemHandler = () => dispatch(removeItemFromCart(cartItem.id));
 
   return (
     <CheckoutItemContainer>

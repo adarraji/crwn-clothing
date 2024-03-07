@@ -1,5 +1,5 @@
 import { CartDropdownContainer, EmptyMessage, CartItems } from "./cartDropdown.styles"
-import Button from "../../components/button/Button"
+import Button from "../button/Button"
 import CartItem from "../cartItem/CartItem"
 import { useSelector } from "react-redux"
 import { selectCartItems } from "../../store/cart/cart.selector"
