@@ -6,14 +6,15 @@ import CartDropdown from "../../components/cartDropdown/CartDropdown"
 import { useSelector } from "react-redux"
 import { selectIsCartOpen } from "../../store/cart/cart.selector.js"
 import { selectCurrentUser } from "../../store/user/user.selector"
-import { NavigationContainer, LogoContainer, Navlinks, NavLink } from "./navigation.styles.jsx"
+import { NavigationContainer, LogoContainer, NavLinks, NavLink, Span } from "./navigation.styles"
 
 import { useDispatch } from "react-redux"
 import { signOut } from "../../store/user/user.reducer"
+import { AppDispatch } from "../../store/store"
 
 
 const Navigation = () => {
-    const dispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch()
     const currentUser = useSelector(selectCurrentUser)
     const isCartOpen = useSelector(selectIsCartOpen)
 
@@ -24,17 +25,21 @@ const Navigation = () => {
     return (
         <Fragment>
             <NavigationContainer>
-                <LogoContainer to="/">
-                    <CrwnLogo className="logo" />
+                <LogoContainer to='/'>
+                    <CrwnLogo className='logo' />
                 </LogoContainer>
-                <Navlinks >
-                    <NavLink to="/shop">SHOP</NavLink>
-                    {currentUser
-                        ? <NavLink as="span" onClick={handleSignOut}>SIGNOUT</NavLink>
-                        : <NavLink to="/auth"> SIGN IN </NavLink>
-                    }
+                <NavLinks>
+                    <NavLink to='/shop'>SHOP</NavLink>
+
+                    {currentUser ? (
+                        <Span onClick={handleSignOut}>
+                            SIGN OUT
+                        </Span>
+                    ) : (
+                        <NavLink to='/auth'>SIGN IN</NavLink>
+                    )}
                     <CartIcon />
-                </Navlinks>
+                </NavLinks>
                 {isCartOpen && <CartDropdown />}
             </NavigationContainer>
             <Outlet />
@@ -43,3 +48,6 @@ const Navigation = () => {
 }
 
 export default Navigation
+
+
+
