@@ -27,3 +27,4 @@ yarn-error.log*
 /tmp
 # Local Netlify folder
 .netlify
+.vscode/
