@@ -4,7 +4,7 @@ import { ReactComponent as CrwnLogo } from "../../assets/crown.svg"
 import CartIcon from "../../components/cartIcon/CartIcon"
 import CartDropdown from "../../components/cartDropdown/CartDropdown"
 import { useSelector } from "react-redux"
-import { selectIsCartOpen } from "../../store/cart/cart.selector.js"
+import { selectIsCartOpen } from "../../store/cart/cart.selector"
 import { selectCurrentUser } from "../../store/user/user.selector"
 import { NavigationContainer, LogoContainer, NavLinks, NavLink, Span } from "./navigation.styles"
 
